@@ -1,5 +1,8 @@
-##Advanced Lane Finding Project 
-###(Udacity Nanodegree Project 4)
+## Advanced Lane Finding
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+
+**In this project, the goal is to write a software pipeline to identify the lane boundaries in a video.**
 
 ---
 
@@ -32,20 +35,10 @@ The following are the goals and steps of this project:
 [image11]: ./output_images/curvature_formula.png "Formula for Radius of Curvature"
 [image12]: ./output_images/final_result.png "Lanes Projected on Original Image"
 
-<!-- [video1]: ./output_images/rgb_yellow_threshold.png " " -->
 
-#### This writeup explains the steps I followed in my implementation by following the [Rubric Points](https://review.udacity.com/#!/rubrics/571/view)
+### 1.0 Camera Calibration
 
-*The codes for steps on single image pipeline are is IPython notebook, [pipeline_session.ipynb](https://github.com/toluwajosh/CarND-Advanced-Lane-Lines/blob/master/pipeline_session.ipynb), while code for the implementation on project video is in [lane_line.py](https://github.com/toluwajosh/CarND-Advanced-Lane-Lines/blob/master/lane_line.py)*
-
----
-<!-- ###Writeup / README
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Advanced-Lane-Lines/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point. -->  
-<!-- You're reading it! -->
-
-###1.0 Camera Calibration
-
-####Computation of camera calibration matrix and distortion coefficients given a set of chessboard images
+#### Computation of camera calibration matrix and distortion coefficients given a set of chessboard images
 
 Starting with camera calibration, see cell 2 for codes in this step. Here, I prepared 'object points' which are points in real world space (x, y, z) coordinates of the chessboard corners. Since we assume the chessboard is on a flat plane, then z=0 so we only consider (x, y). To do this, I went through each chessboard image in the image folder and use the opencv function cv2.findChessboardCorners() to find the corners of the chessboard. I then append these corners to the image points (imgpoints) array to keep the chessboard corners. I also replicated the object points and append to 'objpoints' array to correspond to the found image points.
 After this, I used the outputs 'objpoints' and 'imgpoints' to compute the camera calibration matrix and distortion coefficients needed for correcting distortion on images by using the opencv cv2.calibrateCamera() function.
@@ -61,11 +54,9 @@ I demonstrated the distortion correction on one of the test images. The result i
 
 ---
 
-###2.0 Image Thresholding
+### 2.0 Image Thresholding
 
-####Use of color transforms, and gradients to create a thresholded binary image.
-<!-- ####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images) -->
+#### Use of color transforms, and gradients to create a thresholded binary image.
 
 Before applying image thresholding, I investigated how the image appears in various colour spaces to decide on which channels will be useful for this purpose. The figures below a test image shown in different colour spaces.
 
@@ -93,31 +84,15 @@ See Images below for output of thresholding from each colour space
 
 ---
 
-###3.0 Perspective Transform
+### 3.0 Perspective Transform
 
-####Apply a perspective transform to rectify binary image ("birds-eye view")
+#### Apply a perspective transform to rectify binary image ("birds-eye view")
 <!-- Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image. -->
 
 I loaded a test image with straight lines, to obtain points on the road plane. Points were manually picked from image with straight road lines. I also chose destination points to transform to a birds eye view. This operation is in the Perspective Transform section (3.0)　of the pipeline_sessions.ipynb file.
 
 See below, the points I chose for source and destination:
 
-<!-- The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
-
-```
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-
-``` -->
-<!-- This resulted in the following source and destination points: -->
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
@@ -132,9 +107,9 @@ To verify the perspective transform, I drew line on points and transformed it to
 
 ---
 
-###4.0 Fit Lane Lines
+### 4.0 Fit Lane Lines
 
-####Detect lane pixels and fit to find the lane boundary
+#### Detect lane pixels and fit to find the lane boundary
 <!-- Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial? -->
 
 The following are steps I took in detecting lane line pixels and fitting lines to find lane boundary. Codes can be found in the same section in pipeline_sessions.ipynb file
@@ -188,9 +163,9 @@ In subsequent frames, we only update the lane line pixels and do not need to do 
 
 ---
 
-###5.0 Curvature and Vehicle Position
+### 5.0 Curvature and Vehicle Position
 
-####Determine the curvature of the lane and vehicle position with respect to center
+#### Determine the curvature of the lane and vehicle position with respect to center
 <!-- Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center. -->
 
 I used the formula below to find the radius of curvature.
@@ -218,9 +193,9 @@ I converted pixel values to meters, as in the measurement on the road using the 
 ---
 
 <!-- I did this in lines # through # in my code in `my_other_file.py` -->
-###6.0 Lane Result
+### 6.0 Lane Result
 
-####Warp the detected lane boundaries back onto the original image
+#### Warp the detected lane boundaries back onto the original image
 <!-- Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly. -->
 <!-- I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image: -->
 I warped the result back unto the original image using the inverse transformation matrix calculated earlier. The result is shown below:
@@ -231,7 +206,7 @@ Next is to display radius of curvature and car offset from the center on the ima
 
 ---
 
-###Pipeline Result (video)
+### Pipeline Result (video)
 
 <!-- Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!). -->
 
@@ -241,7 +216,7 @@ Find in the link below, the final output of my pipeline for the project video
 
 ---
 
-###Discussion
+### Discussion
 #### Insights and observations from the project
 <!-- 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust? -->
 
