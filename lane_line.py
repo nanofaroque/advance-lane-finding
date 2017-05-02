@@ -417,7 +417,7 @@ class Line():
 # %% view solution in real time
 frame_line = Line()
 #name_prefix = 'harder_challenge'
-name_prefix = 'challenge'
+name_prefix = 'project'
 vid_path = name_prefix+'_video.mp4'
 
 

@@ -212,7 +212,7 @@ Next is to display radius of curvature and car offset from the center on the ima
 
 Find in the link below, the final output of my pipeline for the project video
 
-[Project Video Result](https://youtu.be/B16Fb0fPzi8)
+[Project Video Output](https://www.youtube.com/watch?v=J5xeCD4YQRA&feature=youtu.be)
 
 ---
 
